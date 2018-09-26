@@ -1,1 +1,1 @@
-# express-api-passport-dynamo
+# express-api-jwt-dynamodb

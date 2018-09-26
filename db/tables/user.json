@@ -11,6 +11,10 @@
     {
       "AttributeName": "first_name",
       "AttributeType": "S"
+    },
+    {
+      "AttributeName": "lat_name",
+      "AttributeType": "S"
     }
   ],
   "LocalSecondaryIndexes": [
@@ -49,7 +53,7 @@
       }
     }
   ],
-  "TableName": "test",
+  "TableName": "USER",
   "KeySchema": [
     {
       "AttributeName": "user_id",
