@@ -1,0 +1,68 @@
+{
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "user_id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "email",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "first_name",
+      "AttributeType": "S"
+    }
+  ],
+  "LocalSecondaryIndexes": [
+    {
+      "IndexName": "first_name_index",
+      "KeySchema": [
+        {
+          "AttributeName": "user_id",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "first_name",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "NonKeyAttributes": [ "first_name" ],
+        "ProjectionType": "INCLUDE"
+      }
+    },
+    {
+      "IndexName": "last_name_index",
+      "KeySchema": [
+        {
+          "AttributeName": "user_id",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "last_name",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "NonKeyAttributes": [ "last_name" ],
+        "ProjectionType": "INCLUDE"
+      }
+    }
+  ],
+  "TableName": "test",
+  "KeySchema": [
+    {
+      "AttributeName": "user_id",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "email",
+      "KeyType": "RANGE"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "NumberOfDecreasesToday": 0,
+    "ReadCapacityUnits": 5,
+    "WriteCapacityUnits": 5
+  }
+}
