@@ -3,7 +3,7 @@ import db from './db/db';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
 import bcrypt from 'bcryptjs';
-
+import { getUserByEmail } from "./model/user";
 // Set up the express app
 const app = express();
 // Parse incoming requests data
@@ -11,38 +11,35 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-/**
- * Configure JWT
- */
-
-let config = require('../config'); // get config file
-
-router.post('/login', function(req, res) {
-
+app.post('/login', async (req, res) => {
+    console.log('request', req.body);
     let creds = req.body.email && req.body.password;
-    if (!creds)  return res.status(403).send('Email Id & Password required');
+    if (!creds)  return res.status(403).send('Email Id or Password invalid');
 
-    User.findOne({ email: req.body.email }, function (err, user) {
-        if (err) return res.status(500).send('Error on the server.');
-        if (!user) return res.status(404).send('No user found.');
+    let email = req.body.email;
 
-        // check if the password is valid
-        var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+    // See if this email exist in DB
+    let user = await getUserByEmail(email);
+    if (user instanceof Error) {
+        return res.status(500).send('Error on the server.');
+    }
 
-        // if user is found and password is valid
-        // create a token
-        var token = jwt.sign({ id: user._id }, config.secret, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-
-        // return the information including token as JSON
-        res.status(200).send({ auth: true, token: token });
+    if (user.length == 0) {
+        return res.status(401).send({ auth: false, token: null });
+    }
+    if (user[0].password !== req.body.password) {
+        return res.status(401).send({ auth: false, token: null });
+    }
+    let token = jwt.sign({ id: user._id }, 'somesecretammulakka', {
+        expiresIn: 86400 // expires in 24 hours
     });
+
+    // return the information including token as JSON
+    res.status(200).send({ auth: true, token: token });
 
 });
 
-router.get('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
     res.status(200).send({ auth: false, token: null });
 });
 
