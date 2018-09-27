@@ -19,7 +19,7 @@ app.post('/login', async (req, res) => {
     if (!creds)  return res.status(403).send('Email Id or Password invalid');
 
     let email = req.body.email;
-
+    console.log('req email', email);
     // See if this email exist in DB
     let user = await getUserByEmail(email);
     if (user instanceof Error) {
@@ -29,6 +29,7 @@ app.post('/login', async (req, res) => {
     if (user.length == 0) {
         return res.status(401).send({ auth: false, token: null });
     }
+    console.log('user---', user);
     if (user[0].password !== req.body.password) {
         return res.status(401).send({ auth: false, token: null });
     }
