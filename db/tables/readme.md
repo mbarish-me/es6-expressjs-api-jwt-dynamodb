@@ -1,3 +1,32 @@
+### 1. Setup local dynamo db & aws-cli at command line
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+https://docs.aws.amazon.com/cli/latest/userguide/installing.html
+
+### 2. Start DynamoDB local instance
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+
+
+### 3. Create table USER
+``sh
+aws dynamodb create-table --cli-input-json file:///<Project_root>/db/tables/create_table_user.json --region us-east-1 --endpoint-url http://localhost:8000
+``
+
+### 4 List table, You should see the just created table
+``sh
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+``
+
+## 5. Load Data to USER table
+``sh
+aws dynamodb batch-write-item --request-items file:///<Project_root>/db/tables/load_data_user.json --endpoint-url http://localhost:8000
+``
+## 6. Check if data is loaded
+``sh
+ aws dynamodb scan --table-name USER --endpoint-url http://localhost:8000
+``
+
+
+### Additional knowledge
 ### Skeleton for creating table! Also included how to add local secondary index and Global secondary index
 
 ```json {
@@ -66,7 +95,7 @@
 //Ref: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
        https://docs.aws.amazon.com/cli/latest/reference/dynamodb/create-table.html
 
-#To create table from json file
+###To create table from json file
 ``sh
 $ aws dynamodb create-table --cli-input-json testbootstraptable.json --region us-west-2
 ``

@@ -1,10 +1,6 @@
 {
   "AttributeDefinitions": [
     {
-      "AttributeName": "user_id",
-      "AttributeType": "S"
-    },
-    {
       "AttributeName": "email",
       "AttributeType": "S"
     },
@@ -13,7 +9,7 @@
       "AttributeType": "S"
     },
     {
-      "AttributeName": "lat_name",
+      "AttributeName": "last_name",
       "AttributeType": "S"
     }
   ],
@@ -22,7 +18,7 @@
       "IndexName": "first_name_index",
       "KeySchema": [
         {
-          "AttributeName": "user_id",
+          "AttributeName": "email",
           "KeyType": "HASH"
         },
         {
@@ -34,38 +30,20 @@
         "NonKeyAttributes": [ "first_name" ],
         "ProjectionType": "INCLUDE"
       }
-    },
-    {
-      "IndexName": "last_name_index",
-      "KeySchema": [
-        {
-          "AttributeName": "user_id",
-          "KeyType": "HASH"
-        },
-        {
-          "AttributeName": "last_name",
-          "KeyType": "RANGE"
-        }
-      ],
-      "Projection": {
-        "NonKeyAttributes": [ "last_name" ],
-        "ProjectionType": "INCLUDE"
-      }
     }
   ],
   "TableName": "USER",
   "KeySchema": [
     {
-      "AttributeName": "user_id",
+      "AttributeName": "email",
       "KeyType": "HASH"
     },
     {
-      "AttributeName": "email",
+      "AttributeName": "last_name",
       "KeyType": "RANGE"
     }
   ],
   "ProvisionedThroughput": {
-    "NumberOfDecreasesToday": 0,
     "ReadCapacityUnits": 5,
     "WriteCapacityUnits": 5
   }

@@ -1,0 +1,31 @@
+{
+  "USER": [
+    {
+      "PutRequest": {
+        "Item": {
+          "email": {"S":"user1@mail.com"},
+          "first_name": {"S":"Ambarish"},
+          "last_name": {"S":"kumar"},
+          "password": {"S":"pass1"}
+
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "email": {
+            "S": "user2@mail.com"
+          },
+          "first_name": {
+            "S": "Bozzo"
+          },
+          "last_name": {
+            "S": "kaddi"
+          },
+          "password": {"S":"pass2"}
+        }
+      }
+    }
+  ]
+}
