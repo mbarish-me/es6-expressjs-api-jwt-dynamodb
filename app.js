@@ -34,12 +34,13 @@ app.post('/login', async (req, res) => {
         return res.status(401).send({ auth: false, token: null });
     }
     let token = jwt.sign({ id: user.email }, 'somesecretammulakka', {
-        expiresIn: 86400 // expires in 24 hours
+        expiresIn: '30s' // expires in 24 hours
     });
 
     // return the information including token as JSON
     res.status(200).send({ auth: true, token: token });
 
+    // res.cookie('cokkieName',token, { httpOnly: true });
 });
 
 app.get('/logout', function(req, res) {
