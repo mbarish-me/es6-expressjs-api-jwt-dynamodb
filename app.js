@@ -3,7 +3,9 @@ import db from './db/db';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
 import bcrypt from 'bcryptjs';
-import { getUserByEmail } from "./model/user";
+import { getUserByEmail } from './model/user';
+import { verifyJWT } from './util/jwt_util';
+
 // Set up the express app
 const app = express();
 // Parse incoming requests data
@@ -30,7 +32,7 @@ app.post('/login', async (req, res) => {
     if (user[0].password !== req.body.password) {
         return res.status(401).send({ auth: false, token: null });
     }
-    let token = jwt.sign({ id: user._id }, 'somesecretammulakka', {
+    let token = jwt.sign({ id: user.email }, 'somesecretammulakka', {
         expiresIn: 86400 // expires in 24 hours
     });
 
@@ -45,7 +47,7 @@ app.get('/logout', function(req, res) {
 
 
 // get all todos
-app.get('/api/v1/todos', (req, res) => {
+app.get('/api/v1/todos',verifyJWT, (req, res) => {
     res.status(200).send({
         success: 'true',
         message: 'todos retrieved successfully',
@@ -53,7 +55,7 @@ app.get('/api/v1/todos', (req, res) => {
     })
 });
 
-app.post('/api/v1/todos', (req, res) => {
+app.post('/api/v1/todos',verifyJWT, (req, res) => {
     if(!req.body.title) {
         return res.status(400).send({
             success: 'false',
