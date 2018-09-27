@@ -7,7 +7,7 @@ let db = new AWS.DynamoDB({endpoint: 'http://localhost:8000',
 export const getUserByEmail = email => {
     let params = {
         ExpressionAttributeValues: {
-            ':s': {S: 'user1@mail.com'}
+            ':s': {S: email}
         },
         KeyConditionExpression: 'email = :s',
         // ProjectionExpression: 'first_name, last_name',
