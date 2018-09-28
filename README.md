@@ -35,7 +35,7 @@ aws dynamodb batch-write-item --request-items file:///<Project_root>/db/tables/l
  ## 2. Clone this repository
 
  ``
- git clone https://github.com/alowsarwar/express-api-passport-dynamo.git
+ git clone https://github.com/alowsarwar/es6-expressjs-api-jwt-dynamodb.git
  ``
 
  Then CD in to it
