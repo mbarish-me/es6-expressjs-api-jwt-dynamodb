@@ -27,7 +27,7 @@ aws dynamodb list-tables --endpoint-url http://localhost:8000
 ``
 aws dynamodb batch-write-item --request-items file:///<Project_root>/db/tables/load_data_user.json --endpoint-url http://localhost:8000
 ``
-## f. Check if data is loaded
+#### f. Check if data is loaded
 ``
  aws dynamodb scan --table-name USER --endpoint-url http://localhost:8000
  ``
