@@ -5,25 +5,25 @@
 ## 1. Install Local dynamo DB instance
 
 
-### a. Setup local dynamo db & aws-cli at command line
+#### a. Setup local dynamo db & aws-cli at command line
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
 https://docs.aws.amazon.com/cli/latest/userguide/installing.html
 
-### b. Start DynamoDB local instance
+#### b. Start DynamoDB local instance
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
 
 
-### c. Create table USER
+#### c. Create table USER
 ``
 aws dynamodb create-table --cli-input-json file:///<Project_root>/db/tables/create_table_user.json --region us-east-1 --endpoint-url http://localhost:8000
 ``
 
-### d. List table, You should see the just created table
+#### d. List table, You should see the just created table
 ``
 aws dynamodb list-tables --endpoint-url http://localhost:8000
 ``
 
-## e. Load Data to USER table
+#### e. Load Data to USER table
 ``
 aws dynamodb batch-write-item --request-items file:///<Project_root>/db/tables/load_data_user.json --endpoint-url http://localhost:8000
 ``
