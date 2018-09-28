@@ -1,4 +1,4 @@
-# Boiler plate for Rest API using Expressjs-DynamoDB-JWTTokens
+# Boiler plate for Rest API using Node-Expressjs-DynamoDB-JWTTokens
 
 
 
